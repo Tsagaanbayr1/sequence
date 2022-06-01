@@ -21,8 +21,7 @@ class BoardTile extends StatefulWidget {
   State<BoardTile> createState() => _BoardTileState();
 }
 
-class _BoardTileState extends State<BoardTile>
-    with SingleTickerProviderStateMixin {
+class _BoardTileState extends State<BoardTile> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   Side? _previousOwner;
@@ -77,19 +76,15 @@ class _BoardTileState extends State<BoardTile>
   @override
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
-    final owner =
-        context.select((BoardState state) => state.whoIsAt(widget.tile));
-    final playerSide =
-        context.select((BoardState state) => state.setting.playerSide);
-    final isWinning = context.select((BoardState state) =>
-        state.winningLine?.contains(widget.tile) ?? false);
+    final owner = context.select((BoardState state) => state.whoIsAt(widget.tile));
+    final playerSide = context.select((BoardState state) => state.setting.playerSide);
+    final isWinning = context.select((BoardState state) => state.winningLine?.contains(widget.tile) ?? false);
 
     Widget representation;
 
     var color = owner == playerSide ? palette.ink : palette.ink;
     color = isWinning ? palette.redPen : color;
-    final progress =
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
+    final progress = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
     switch (owner) {
       case Side.none:
         representation = const SizedBox.expand();
@@ -166,8 +161,7 @@ class _SketchedX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
-      final width =
-          constraints.maxWidth * MediaQuery.of(context).devicePixelRatio;
+      final width = constraints.maxWidth * MediaQuery.of(context).devicePixelRatio;
       final resizeCrossStart = ResizeImage(
         AssetImage(_startImageAssets[variantSeed % _startImageAssets.length]),
         width: width.ceil(),
@@ -178,8 +172,7 @@ class _SketchedX extends StatelessWidget {
         fit: BoxFit.contain,
       );
       final resizeCrossEnd = ResizeImage(
-        AssetImage(_endImageAssets[
-            Object.hash(42, variantSeed) % _endImageAssets.length]),
+        AssetImage(_endImageAssets[Object.hash(42, variantSeed) % _endImageAssets.length]),
         width: width.ceil(),
       );
       final crossEnd = Image(
@@ -261,6 +254,15 @@ class _SketchedO extends StatelessWidget {
     required this.variantSeed,
   }) : super(key: key);
 
+  static const _cards = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Q', 'K', 'A'];
+  static const _jackCards = ['J1', 'J2'];
+  static const _colors = [
+    'assets/images/flower.png',
+    'assets/images/seal.png',
+    'assets/images/hearth.png',
+    'assets/images/rectangle.png',
+  ];
+
   static const _imageAssets = [
     'assets/images/circle1.png',
     'assets/images/circle2.png',
@@ -273,8 +275,7 @@ class _SketchedO extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final width =
-            constraints.maxWidth * MediaQuery.of(context).devicePixelRatio;
+        final width = constraints.maxWidth * MediaQuery.of(context).devicePixelRatio;
         final resizeImage = ResizeImage(
           AssetImage(_imageAssets[variantSeed % _imageAssets.length]),
           width: width.ceil(),
